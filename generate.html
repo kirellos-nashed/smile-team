@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get QR Code</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <link rel="icon" type="image/x-icon" href="./icon-192.png">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --bg-color: #f8fafc;
+            --surface: #ffffff;
+            --text-main: #0f172a;
+            --border: #e2e8f0;
+            --accent-warm: #ec4899;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background-color: var(--surface);
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.025);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .logo {
+            width: 100px;
+            height: 100px;
+            object-fit: contain;
+            margin-bottom: 15px;
+            border-radius: 50%;
+        }
+
+        h1 {
+            font-size: 1.6rem;
+            margin-top: 0;
+            margin-bottom: 8px;
+            color: var(--text-main);
+        }
+
+        p.subtitle {
+            color: #64748b;
+            font-size: 1rem;
+            margin-bottom: 28px;
+            line-height: 1.5;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 20px;
+            text-align: right;
+        }
+
+        label {
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: #334155;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px;
+            font-size: 1rem;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            box-sizing: border-box;
+            text-align: right;
+            transition: all 0.2s ease;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+        }
+
+        .btn {
+            width: 100%;
+            padding: 16px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: all 0.2s ease;
+        }
+
+        .btn:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        #result-area {
+            margin-top: 30px;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 25px;
+            border-top: 2px dashed var(--border);
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        #qrcode {
+            margin: 20px 0;
+            padding: 15px;
+            background: white;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .warning-box {
+            background-color: #fef3c7;
+            color: #b45309;
+            padding: 14px;
+            border-radius: 12px;
+            font-weight: bold;
+            font-size: 0.95rem;
+            line-height: 1.4;
+        }
+
+        .friendly-signoff {
+            margin-top: 20px;
+            color: var(--accent-warm);
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <img src="./icon-512.png" alt="Group Logo" class="logo" width="120">
+
+        <h1>Smile Team</h1>
+        <p class="subtitle">يلا نعمل الـ QR Code ✨</p>
+
+        <form id="qr-form">
+            <div class="input-group">
+                <label for="name">اسمك الرباعي (بالعربية فقط)</label>
+                <input type="text" id="name" pattern="^[\u0600-\u06FF\s]+$" title="الرجاء إدخال الاسم باللغة العربية"
+                    required>
+            </div>
+
+            <button type="submit" class="btn">🚀 Get My QR Code</button>
+        </form>
+
+        <div id="result-area">
+            <div class="warning-box">
+                📸 يرجى التقاط صورة للشاشة (Screenshot) والاحتفاظ بها لاستخدامها كل أسبوع!
+            </div>
+            <div id="qrcode"></div>
+            <h2 id="display-name" style="margin-bottom: 5px; color: var(--text-main);"></h2>
+
+            <div class="friendly-signoff">
+                هنستناك الاجتماع الجاي ❤️
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('qr-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const name = document.getElementById('name').value.trim();
+
+            // Arabic validation fallback
+            const arabicRegex = /^[\u0600-\u06FF\s]+$/;
+            if (!arabicRegex.test(name)) {
+                alert("الرجاء إدخال الاسم باللغة العربية فقط.");
+                return;
+            }
+
+            // Create the QR string with just the name
+            const safeQrString = encodeURIComponent(name); // UTF-8 Encoding
+
+            // Clear previous QR
+            const qrContainer = document.getElementById('qrcode');
+            qrContainer.innerHTML = '';
+
+            // Generate new QR
+            new QRCode(qrContainer, {
+                text: safeQrString,
+                width: 200,
+                height: 200,
+                colorDark: "#0f172a",
+                colorLight: "#ffffff",
+                correctLevel: QRCode.CorrectLevel.L
+            });
+
+            // Update UI text (only the name now)
+            document.getElementById('display-name').textContent = name;
+
+            // Show result area and hide form button
+            document.getElementById('result-area').style.display = 'flex';
+            document.querySelector('.btn').style.display = 'none';
+        });
+    </script>
+</body>
+
+</html>

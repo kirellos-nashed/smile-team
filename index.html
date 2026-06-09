@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <!-- Crucial for mobile apps: ensures it scales correctly and disables pinch-to-zoom to feel native -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>Attendance Scanner</title>
+
+    <script src="https://unpkg.com/html5-qrcode"></script>
+    <!-- Link to the CSS we will write in Phase 1.2 -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Link to the PWA Manifest we will write in Phase 3 -->
+    <link rel="manifest" href="manifest.json">
+
+    <!-- Theme color for the browser/OS UI -->
+    <meta name="theme-color" content="#2563eb">
+
+    <link rel="icon" type="image/x-icon" href="./icon-192.png">
+</head>
+
+<body>
+
+
+    <div id="auth-screen" class="auth-wrapper">
+        <div class="auth-card">
+            <span style="font-size: 3rem;">🔒</span>
+            <h2>Leaders Access</h2>
+            <p>Please enter the PIN.</p>
+
+            <div class="input-group">
+                <!-- Changed type, pattern, and removed inputmode -->
+                <input type="password" id="organizer-pin" placeholder="Enter Password" pattern=".*" inputmode="text">
+                <p id="pin-error" class="hidden" style="color: #b91c1c; font-size: 0.85rem; margin-top: 4px;">
+                    Incorrect Password.
+                </p>
+            </div>
+
+            <button id="btn-submit-pin" class="btn primary">Unlock App</button>
+
+            <!-- Helpful link to redirect lost attendees back to the generator -->
+            <a href="generate.html"
+                style="display: block; margin-top: 20px; color: var(--primary); text-decoration: none; font-size: 0.9rem;">
+                Are you a member? Get your QR code here.
+            </a>
+        </div>
+    </div>
+
+    <!-- We wrap the rest of the app in this container, hidden by default -->
+    <div id="app-container" style="display: none;"></div>
+
+    <!-- Link to the JavaScript we will write in Phases 2 and 4 -->
+    <script src="app.js"></script>
+
+    <!-- External Library for QR Generation (Loaded via CDN for now, but can be downloaded for pure offline later) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+
+</body>
+
+</html>
