@@ -1,4 +1,4 @@
-const CACHE_NAME = 'attendance-app-v1.0';
+const CACHE_NAME = 'attendance-app-v1.1';
 
 // Every single file the app needs to run completely offline
 const ASSETS_TO_CACHE = [
@@ -10,7 +10,8 @@ const ASSETS_TO_CACHE = [
     './icon-192.png', // The icons you added in Phase 3.1
     './icon-512.png',
     // We also cache the external QR code library from the CDN!
-    'https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js'
+    'https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js',
+    'https://cdnjs.cloudflare.com/ajax/libs/html5-qrcode/2.3.8/html5-qrcode.min.js'
 ];
 
 // 1. INSTALL EVENT: This happens the very first time the organizer opens the app at home.
