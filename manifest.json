@@ -1,5 +1,5 @@
 {
-    "name": "Smile Team Data",
+    "name": "Smile Team",
     "short_name": "Smile Team",
     "description": "Offline-first QR attendance tracker for organizers.",
     "start_url": "./index.html",
