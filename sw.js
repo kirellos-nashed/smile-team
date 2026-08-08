@@ -1,4 +1,4 @@
-const CACHE_NAME = 'attendance-app-v1.1';
+const CACHE_NAME = 'attendance-app-v1.2';
 
 // Every single file the app needs to run completely offline
 const ASSETS_TO_CACHE = [
